@@ -32,6 +32,9 @@
 
                 'avg' => $column->avg['footer'] ? data_get($column, 'summarize.avg') : null,
                 'labelAvg' => $column->avg['label'],
+            
+                'avg' => $column->custom['footer'] ? data_get($column, 'summarize.custom') : null,
+                'labelAvg' => $column->custom['label']
             ])
         </td>
     @endforeach
