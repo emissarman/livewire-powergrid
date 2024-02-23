@@ -339,7 +339,7 @@ class ProcessDataSource
             return;
         }
 
-        $format = function ($summarize, $column, $field, $value) {
+        $format = function ($summarize, $column, $field, $value = null) {
             if (method_exists($this->component, 'summarizeFormat')) {
                 $summarizeFormat = $this->component->summarizeFormat();
 
@@ -354,7 +354,7 @@ class ProcessDataSource
                     $parts = explode('.', $field);
 
                     if (isset($parts[1])) {
-                        $formats                 = str($parts[1])->replace(['{', '}'], '');
+                        $formats = str($parts[1])->replace(['{', '}'], '');
                         $allowedSummarizeFormats = explode(',', $formats);
 
                         if ($column->field === $parts[0] && in_array($summarize, $allowedSummarizeFormats)) {
@@ -374,16 +374,20 @@ class ProcessDataSource
             ->map(function (array|\stdClass|Column $column) use ($results, $format) {
                 $field = strval(data_get($column, 'dataField')) ?: strval(data_get($column, 'field'));
 
-                $summaries = ['sum', 'count', 'avg', 'min', 'max'];
+                $summaries = ['sum', 'count', 'avg', 'min', 'max', 'custom'];
 
                 foreach ($summaries as $summary) {
-                    if (data_get($column, $summary . '.header') || data_get($column, $summary . '.footer')) {
-                        $value = $results->{$summary}($field);
-                        $format($summary, $column, $field, $value);
+                    if ($column->{$summary}['header'] || $column->{$summary}['footer']) {
+                        if (data_get($column, $summary . '.header') || data_get($column, $summary . '.footer')) {
+                            if ($summary !== 'custom') {
+                                $value = $results->{$summary}($field);
+                            }
+                            $format($summary, $column, $field, $value ?? null);
+                        }
                     }
                 }
 
-                return (object) $column;
+                return (object)$column;
             })->toArray();
     }
 }
