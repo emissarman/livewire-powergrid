@@ -70,6 +70,12 @@ final class Column implements \Livewire\Wireable
         'label'  => null,
     ];
 
+    public array $custom = [
+        'header' => false,
+        'footer' => false,
+        'label'  => null,
+    ];
+
     public mixed $filters = null;
 
     public bool $isAction = false;
@@ -265,6 +271,22 @@ final class Column implements \Livewire\Wireable
      */
     public function withMax(
         string $label = 'Max',
+        bool $header = true,
+        bool $footer = true
+    ): Column {
+        $this->max['label']  = $label;
+        $this->max['header'] = $header;
+        $this->max['footer'] = $footer;
+
+        return $this;
+    }
+
+    /**
+     * Display Column Custom Summary
+     *
+     */
+    public function withCustom(
+        string $label = 'Custom',
         bool $header = true,
         bool $footer = true
     ): Column {
