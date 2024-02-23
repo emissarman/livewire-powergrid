@@ -290,9 +290,9 @@ final class Column implements \Livewire\Wireable
         bool $header = true,
         bool $footer = true
     ): Column {
-        $this->max['label']  = $label;
-        $this->max['header'] = $header;
-        $this->max['footer'] = $footer;
+        $this->custom['label']  = $label;
+        $this->custom['header'] = $header;
+        $this->custom['footer'] = $footer;
 
         return $this;
     }
