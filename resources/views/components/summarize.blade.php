@@ -9,29 +9,38 @@
     'labelMax' => null,
     'avg' => null,
     'labelAvg' => null,
+    'custom' => null,
+    'labelCustom' => null
 ])
-<div>
-    @if ($sum)
-        <span>{!! $labelSum !!}: {{ $sum }}</span>
+
+<div class="text-xs">
+    @if ($sum !== null)
+        <span>@if($labelSum){!! $labelSum !!}:@endif {{ $sum }}</span>
         <br>
     @endif
 
-    @if ($count)
-        <span>{!! $labelCount !!}: {{ $count }}</span>
-        <br>
-    @endif
-    @if ($min)
-        <span>{!! $labelMin !!}: {{ $min }}</span>
+    @if ($count !== null)
+        <span>@if($labelCount){!! $labelCount !!}:@endif {{ $count }}</span>
         <br>
     @endif
 
-    @if ($max)
-        <span>{!! $labelMax !!}: {{ $max }}</span>
+    @if ($min !== null)
+        <span>@if($labelMin){!! $labelMin !!}:@endif {{ $min }}</span>
         <br>
     @endif
 
-    @if ($avg)
-        <span>{!! $labelAvg !!}: {{ $avg }}</span>
+    @if ($max !== null)
+        <span>@if($labelMax){!! $labelMax !!}:@endif {{ $max }}</span>
+        <br>
+    @endif
+
+    @if ($avg !== null)
+        <span>@if($labelAvg){!! $labelAvg !!}:@endif {{ $avg }}</span>
+        <br>
+    @endif
+
+    @if ($custom !== null)
+        <span>@if($labelCustom){!! $labelCustom !!}:@endif {{ $custom }}</span>
         <br>
     @endif
 </div>
